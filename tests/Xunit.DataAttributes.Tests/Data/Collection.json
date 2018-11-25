@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Daredevil",
+    "Seasons": 3,
+    "ForKids": false,
+    "Network": "Netflix" 
+  },
+  {
+    "Name": "The Flash",
+    "Seasons": 5,
+    "ForKids": true,
+    "Network": "The CW" 
+  }
+]

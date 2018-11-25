@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0-beta.1</Version>
+    <Authors>Jeevan James</Authors>
+    <Description>Custom xUnit data attributes.</Description>
+    <Copyright>Copyright (c) 2018 Jeevan James</Copyright>
+    <PackageProjectUrl>https://github.com/JeevanJames/Xunit.DataAttributes</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JeevanJames/Xunit.DataAttributes.git</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>xunit,data-attributes,extensibility</PackageTags>
+    <PackageLicenseUrl>https://github.com/JeevanJames/Xunit.DataAttributes/blob/master/LICENSE</PackageLicenseUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>D:\Code\GitHub\Xunit.DataAttributes\src\Xunit.DataAttributes\Xunit.DataAttributes.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>D:\Code\GitHub\Xunit.DataAttributes\src\Xunit.DataAttributes\Xunit.DataAttributes.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+  </ItemGroup>
+
+</Project>

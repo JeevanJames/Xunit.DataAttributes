@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xunit.DataAttributes</name>
+    </assembly>
+    <members>
+        <member name="T:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute">
+            <summary>
+                Base class for xUnit data attributes that extract data from one or more embedded
+                resources in assemblies.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.UseAsRegex">
+            <summary>
+                Indicates whether the specified resource names are regular expressions.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.Assembly">
+            <summary>
+                The assembly to load the resources from. If not specified, this defaults to the
+                currently executing assembly.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.Encoding">
+            <summary>
+                Gets or sets the character encoding to use when loading the resource data.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.DetectEncoding">
+            <summary>
+                Gets or sets whether to automatically detect the character encoding when loading
+                the resource data.
+            </summary>
+        </member>
+        <member name="M:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.GetData(System.String,System.Reflection.MethodInfo)">
+            <summary>
+                Given the resource content, deriving classes should override this method to extract
+                the required data and return as an <c>IEnumerable&lt;object[]&gt;</c>
+            </summary>
+            <param name="resourceContent">The content of the resource, as a string.</param>
+            <param name="testMethod">The test method.</param>
+            <returns>A collection of extracted data.</returns>
+        </member>
+        <member name="T:Xunit.DataAttributes.EmbeddedResourceAsJsonAttribute">
+            <summary>
+                Provides a data source for a data theory, with the data coming from one or more assembly
+                embedded resources, where each resource is a JSON structure that can be deserialized
+                into the specified type.
+            </summary>
+        </member>
+        <member name="T:Xunit.DataAttributes.EmbeddedResourceContentAttribute">
+            <summary>
+                Provides a data source for a data theory, with the data coming as the content of one or
+                more assembly embedded resources.
+            </summary>
+        </member>
+        <member name="T:Xunit.DataAttributes.EmbeddedResourceLinesAttribute">
+            <summary>
+                Provides a data source for a data theory, with the data coming from one or more assembly
+                embedded resources, where each data item is a single line in the embedded resource content.
+            </summary>
+        </member>
+    </members>
+</doc>
