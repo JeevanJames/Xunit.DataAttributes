@@ -1,4 +1,5 @@
-﻿#region --- License & Copyright Notice ---
+extensions: .cs
+#region --- License & Copyright Notice ---
 /*
 xUnit custom data attributes
 Copyright (c) 2018 Jeevan James
@@ -17,14 +18,3 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #endregion
-
-namespace Xunit.DataAttributes.Tests
-{
-    public sealed class TelevisionShow
-    {
-        public string Name { get; set; }
-        public int Seasons { get; set; }
-        public bool ForKids { get; set; }
-        public string Network { get; set; }
-    }
-}

@@ -9,11 +9,17 @@
   <ItemGroup>
     <None Remove="Data\Collection.json" />
     <None Remove="Data\Object.json" />
+    <None Remove="Data\PrimitiveCollection.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Data\Collection.json" />
     <EmbeddedResource Include="Data\Object.json" />
+    <EmbeddedResource Include="Data\PrimitiveCollection.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Xunit.DataAttributes.licenseheader" Link="Xunit.DataAttributes.licenseheader" />
   </ItemGroup>
 
   <ItemGroup>

@@ -29,6 +29,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\Xunit.DataAttributes.licenseheader" Link="Xunit.DataAttributes.licenseheader" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
   </ItemGroup>

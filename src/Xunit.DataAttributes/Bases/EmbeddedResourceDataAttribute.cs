@@ -1,6 +1,6 @@
 ﻿#region --- License & Copyright Notice ---
 /*
-IniFile Library for .NET
+xUnit custom data attributes
 Copyright (c) 2018 Jeevan James
 All rights reserved.
 
