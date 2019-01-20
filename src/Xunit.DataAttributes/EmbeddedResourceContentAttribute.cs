@@ -39,10 +39,26 @@ namespace Xunit.DataAttributes
         {
         }
 
+        public ContentType ContentType { get; set; }
+
         protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
             foreach (var (content, _) in resources)
-                yield return new object[] {content};
+            {
+                object data = content;
+                if (ContentType == ContentType.Stream)
+                    data = ToStream(content);
+                else if (ContentType == ContentType.TextReader)
+                    data = ToReader(content);
+                yield return new object[] {data};
+            }
         }
+    }
+
+    public enum ContentType
+    {
+        String,
+        Stream,
+        TextReader,
     }
 }
