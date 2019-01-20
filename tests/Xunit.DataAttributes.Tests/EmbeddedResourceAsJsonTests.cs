@@ -18,6 +18,8 @@ limitations under the License.
 */
 #endregion
 
+using System.Collections.Generic;
+
 using Shouldly;
 
 namespace Xunit.DataAttributes.Tests
@@ -25,14 +27,14 @@ namespace Xunit.DataAttributes.Tests
     public sealed class EmbeddedResourceAsJsonTests
     {
         [Theory]
-        [EmbeddedResourceAsJson("Xunit.DataAttributes.Tests.Data.Collection.json")]
-        public void Can_deserialize_json_array(TelevisionShow show)
+        [EmbeddedResourceAsJson(Jsons.Collection)]
+        public void Can_deserialize_json_array(IList<TelevisionShow> shows)
         {
-            show.ShouldNotBeNull();
+            shows.Count.ShouldBe(2);
         }
 
         [Theory]
-        [EmbeddedResourceAsJson("Xunit.DataAttributes.Tests.Data.Object.json")]
+        [EmbeddedResourceAsJson(Jsons.Object)]
         public void Can_derialize_json_object(TelevisionShow show)
         {
             show.ShouldNotBeNull();
@@ -43,15 +45,15 @@ namespace Xunit.DataAttributes.Tests
         }
 
         [Theory]
-        [EmbeddedResourceAsJson("Xunit.DataAttributes.Tests.Data.Collection.json")]
-        [EmbeddedResourceAsJson("Xunit.DataAttributes.Tests.Data.Object.json")]
+        [EmbeddedResourceAsJson(Jsons.Collection)]
+        [EmbeddedResourceAsJson(Jsons.Object)]
         public void Can_deserialize_json_collection_and_object(TelevisionShow show)
         {
             show.ShouldNotBeNull();
         }
 
         [Theory]
-        [EmbeddedResourceAsJson("Xunit.DataAttributes.Tests.Data.PrimitiveCollection.json")]
+        [EmbeddedResourceAsJson(Jsons.PrimitiveCollection)]
         public void Can_deserialize_primitive_collection(int num)
         {
             num.ShouldBeGreaterThanOrEqualTo(1);
