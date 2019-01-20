@@ -130,13 +130,14 @@ namespace Xunit.DataAttributes.Bases
                 if (resourcesContent.Count != parameterTypes.Count)
                     throw new Exception("Mismatched number of data vs parameters.");
 
-                var resources = resourcesContent.Zip(parameterTypes, (r, t) => (r, t)).ToList();
-                IEnumerable<object> data = GetData(resources);
-                yield return data.ToArray();
+                var resources = resourcesContent.Zip(parameterTypes, (res, type) => (res, type)).ToList();
+                IEnumerable<object[]> data = GetData(resources);
+                foreach (object[] items in data)
+                    yield return items;
             }
         }
 
-        protected abstract IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources);
+        protected abstract IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources);
 
         protected Stream ToStream(string str)
         {

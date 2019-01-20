@@ -39,10 +39,10 @@ namespace Xunit.DataAttributes
         {
         }
 
-        protected override IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources)
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
             foreach (var (content, _) in resources)
-                yield return content;
+                yield return new object[] {content};
         }
     }
 }

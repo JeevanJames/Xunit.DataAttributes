@@ -40,23 +40,25 @@ namespace Xunit.DataAttributes
         }
 
         /// <inheritdoc/>
-        protected override IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources)
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
-            foreach (var (content, type) in resources)
+            var result = new object[resources.Count];
+            for (int i = 0; i < resources.Count; i++)
             {
+                var (content, type) = resources[i];
                 JToken allData = JToken.Parse(content);
+                object data = null;
                 if (allData is JArray arr)
                 {
                     Type listType = typeof(List<>).MakeGenericType(type);
-                    var data = (IList)arr.ToObject(listType);
-                    yield return data;
+                    data = arr.ToObject(listType);
                 }
                 else if (allData is JObject obj)
-                {
-                    object data = obj.ToObject(type);
-                    yield return data;
-                }
+                    data = obj.ToObject(type);
+                result[i] = data;
             }
+
+            yield return result;
         }
     }
 }

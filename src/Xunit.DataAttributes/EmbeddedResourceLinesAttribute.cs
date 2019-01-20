@@ -20,7 +20,8 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using System.Text.RegularExpressions;
 using Xunit.DataAttributes.Bases;
 
 namespace Xunit.DataAttributes
@@ -46,17 +47,11 @@ namespace Xunit.DataAttributes
             _lineConverter = lineConverter;
         }
 
-        protected override IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources)
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
-            throw new NotImplementedException();
+            string[] lines = Regex.Split(resources[0].content, @"\r\n|\r|\n");
+            IEnumerable<object> data = _lineConverter != null ? lines.Select(_lineConverter) : lines;
+            return data.Select(line => new object[] { line });
         }
-
-
-        //protected override IEnumerable<object[]> GetData(string resourceContent, MethodInfo testMethod)
-        //{
-        //    string[] lines = Regex.Split(resourceContent, @"\r\n|\r|\n");
-        //    IEnumerable<object> data = _lineConverter != null ? lines.Select(_lineConverter) : lines;
-        //    return data.Select(line => new object[] { line });
-        //}
     }
 }
