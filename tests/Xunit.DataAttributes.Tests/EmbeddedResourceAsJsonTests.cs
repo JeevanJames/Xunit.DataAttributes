@@ -28,7 +28,7 @@ namespace Xunit.DataAttributes.Tests
     {
         [Theory]
         [EmbeddedResourceAsJson(Jsons.Collection)]
-        public void Can_deserialize_json_array(IList<TelevisionShow> shows)
+        public void Can_deserialize_json_array(List<TelevisionShow> shows)
         {
             shows.Count.ShouldBe(2);
         }
@@ -45,19 +45,10 @@ namespace Xunit.DataAttributes.Tests
         }
 
         [Theory]
-        [EmbeddedResourceAsJson(Jsons.Collection)]
-        [EmbeddedResourceAsJson(Jsons.Object)]
-        public void Can_deserialize_json_collection_and_object(TelevisionShow show)
-        {
-            show.ShouldNotBeNull();
-        }
-
-        [Theory]
         [EmbeddedResourceAsJson(Jsons.PrimitiveCollection)]
-        public void Can_deserialize_primitive_collection(int num)
+        public void Can_deserialize_primitive_collection(int[] nums)
         {
-            num.ShouldBeGreaterThanOrEqualTo(1);
-            num.ShouldBeLessThanOrEqualTo(7);
+            nums.ShouldBe(new[] {1, 2, 3, 4, 5, 6, 7});
         }
     }
 }

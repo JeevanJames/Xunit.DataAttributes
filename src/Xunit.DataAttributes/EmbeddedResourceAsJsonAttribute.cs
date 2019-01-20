@@ -19,6 +19,7 @@ limitations under the License.
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using Newtonsoft.Json.Linq;
@@ -46,17 +47,8 @@ namespace Xunit.DataAttributes
             {
                 var (content, type) = resources[i];
                 JToken allData = JToken.Parse(content);
-                object data = null;
-                if (allData is JArray arr)
-                {
-                    Type listType = typeof(List<>).MakeGenericType(type);
-                    data = arr.ToObject(listType);
-                }
-                else if (allData is JObject obj)
-                    data = obj.ToObject(type);
-                result[i] = data;
+                result[i] = allData.ToObject(type);
             }
-
             yield return result;
         }
     }

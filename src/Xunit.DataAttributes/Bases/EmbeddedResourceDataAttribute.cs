@@ -91,12 +91,6 @@ namespace Xunit.DataAttributes.Bases
         /// </summary>
         public bool DetectEncoding { get; set; } = false;
 
-        /// <summary>
-        ///     Gets or sets how the embedded resource content is returned. The default is as a
-        ///     string, but it could also be returned as a <see cref="Stream"/> or a <see cref="TextReader"/>.
-        /// </summary>
-        public DataType DataType { get; set; }
-
         public sealed override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {
             if (testMethod == null)
