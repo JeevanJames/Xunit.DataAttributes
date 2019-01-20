@@ -20,9 +20,6 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
 
 using Xunit.DataAttributes.Bases;
 
@@ -36,23 +33,30 @@ namespace Xunit.DataAttributes
     {
         private readonly Func<string, object> _lineConverter;
 
-        public EmbeddedResourceLinesAttribute(Func<string, object> lineConverter, params string[] resourceNames)
-            : base(resourceNames)
+        public EmbeddedResourceLinesAttribute(string resourceName, bool useAsRegex = false)
+            : base(resourceName, useAsRegex)
+        {
+        }
+
+        public EmbeddedResourceLinesAttribute(string resourceName, Func<string, object> lineConverter,
+            bool useAsRegex = false) : base(resourceName, useAsRegex)
         {
             if (lineConverter == null)
                 throw new ArgumentNullException(nameof(lineConverter));
             _lineConverter = lineConverter;
         }
 
-        public EmbeddedResourceLinesAttribute(params string[] resourceNames) : base(resourceNames)
+        protected override IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
+            throw new NotImplementedException();
         }
 
-        protected override IEnumerable<object[]> GetData(string resourceContent, MethodInfo testMethod)
-        {
-            string[] lines = Regex.Split(resourceContent, @"\r\n|\r|\n");
-            IEnumerable<object> data = _lineConverter != null ? lines.Select(_lineConverter) : lines;
-            return data.Select(line => new object[] { line });
-        }
+
+        //protected override IEnumerable<object[]> GetData(string resourceContent, MethodInfo testMethod)
+        //{
+        //    string[] lines = Regex.Split(resourceContent, @"\r\n|\r|\n");
+        //    IEnumerable<object> data = _lineConverter != null ? lines.Select(_lineConverter) : lines;
+        //    return data.Select(line => new object[] { line });
+        //}
     }
 }

@@ -18,8 +18,9 @@ limitations under the License.
 */
 #endregion
 
+using System;
 using System.Collections.Generic;
-using System.Reflection;
+
 using Xunit.DataAttributes.Bases;
 
 namespace Xunit.DataAttributes
@@ -34,9 +35,14 @@ namespace Xunit.DataAttributes
         {
         }
 
-        protected override IEnumerable<object[]> GetData(string resourceContent, MethodInfo testMethod)
+        public EmbeddedResourceContentAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
         {
-            yield return new[] { resourceContent };
+        }
+
+        protected override IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources)
+        {
+            foreach (var (content, _) in resources)
+                yield return content;
         }
     }
 }

@@ -21,7 +21,6 @@ limitations under the License.
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
 using Newtonsoft.Json.Linq;
 
@@ -40,11 +39,12 @@ namespace Xunit.DataAttributes
         {
         }
 
+        /// <inheritdoc/>
         protected override IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
             foreach (var (content, type) in resources)
             {
-                var allData = JToken.Parse(content);
+                JToken allData = JToken.Parse(content);
                 if (allData is JArray arr)
                 {
                     Type listType = typeof(List<>).MakeGenericType(type);

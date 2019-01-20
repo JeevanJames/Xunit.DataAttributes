@@ -10,11 +10,6 @@
                 resources in assemblies.
             </summary>
         </member>
-        <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.UseAsRegex">
-            <summary>
-                Indicates whether the specified resource names are regular expressions.
-            </summary>
-        </member>
         <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.Assembly">
             <summary>
                 The assembly to load the resources from. If not specified, this defaults to the
@@ -38,21 +33,15 @@
                 string, but it could also be returned as a <see cref="T:System.IO.Stream"/> or a <see cref="T:System.IO.TextReader"/>.
             </summary>
         </member>
-        <member name="M:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.GetData(System.String,System.Reflection.MethodInfo)">
-            <summary>
-                Given the resource content, deriving classes should override this method to extract
-                the required data and return as an <c>IEnumerable&lt;object[]&gt;</c>
-            </summary>
-            <param name="resourceContent">The content of the resource, as a string.</param>
-            <param name="testMethod">The test method.</param>
-            <returns>A collection of extracted data.</returns>
-        </member>
         <member name="T:Xunit.DataAttributes.EmbeddedResourceAsJsonAttribute">
             <summary>
                 Provides a data source for a data theory, with the data coming from one or more assembly
                 embedded resources, where each resource is a JSON structure that can be deserialized
                 into the specified type.
             </summary>
+        </member>
+        <member name="M:Xunit.DataAttributes.EmbeddedResourceAsJsonAttribute.GetData(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Type}})">
+            <inheritdoc/>
         </member>
         <member name="T:Xunit.DataAttributes.EmbeddedResourceContentAttribute">
             <summary>
