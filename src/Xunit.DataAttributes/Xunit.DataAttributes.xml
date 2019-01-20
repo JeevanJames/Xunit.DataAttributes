@@ -32,6 +32,12 @@
                 the resource data.
             </summary>
         </member>
+        <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.DataType">
+            <summary>
+                Gets or sets how the embedded resource content is returned. The default is as a
+                string, but it could also be returned as a <see cref="T:System.IO.Stream"/> or a <see cref="T:System.IO.TextReader"/>.
+            </summary>
+        </member>
         <member name="M:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.GetData(System.String,System.Reflection.MethodInfo)">
             <summary>
                 Given the resource content, deriving classes should override this method to extract

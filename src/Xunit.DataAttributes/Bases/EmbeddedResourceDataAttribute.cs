@@ -42,21 +42,33 @@ namespace Xunit.DataAttributes.Bases
         private readonly IReadOnlyList<string> _resourceNames;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly bool _useAsRegex;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Encoding _encoding = Encoding.UTF8;
 
         public EmbeddedResourceDataAttribute(params string[] resourceNames)
         {
             if (resourceNames == null)
                 throw new ArgumentNullException(nameof(resourceNames));
-            _resourceNames = resourceNames.Where(n => !string.IsNullOrWhiteSpace(n)).ToList();
-            if (_resourceNames.Count == 0)
+            if (!resourceNames.Any())
                 throw new ArgumentException("Specify at least one valid name.", nameof(resourceNames));
+            if (resourceNames.Any(name => string.IsNullOrWhiteSpace(name)))
+                throw new ArgumentException("Resource names cannot be null or empty.", nameof(resourceNames));
+
+            _resourceNames = resourceNames.ToList();
         }
 
-        /// <summary>
-        ///     Indicates whether the specified resource names are regular expressions.
-        /// </summary>
-        public bool UseAsRegex { get; set; }
+        public EmbeddedResourceDataAttribute(string resourceName, bool useAsRegex = false)
+        {
+            if (resourceName == null)
+                throw new ArgumentNullException(nameof(resourceName));
+            if (resourceName.Trim().Length == 0)
+                throw new ArgumentException("Specify a valid resource name.", nameof(resourceName));
+
+            _resourceNames = new List<string> {resourceName};
+            _useAsRegex = useAsRegex;
+        }
 
         /// <summary>
         ///     The assembly to load the resources from. If not specified, this defaults to the
@@ -69,7 +81,7 @@ namespace Xunit.DataAttributes.Bases
         /// </summary>
         public Encoding Encoding
         {
-            get => _encoding;
+            get => _encoding ?? Encoding.UTF8;
             set => _encoding = value ?? throw new ArgumentNullException(nameof(value));
         }
 
@@ -79,51 +91,66 @@ namespace Xunit.DataAttributes.Bases
         /// </summary>
         public bool DetectEncoding { get; set; } = false;
 
+        /// <summary>
+        ///     Gets or sets how the embedded resource content is returned. The default is as a
+        ///     string, but it could also be returned as a <see cref="Stream"/> or a <see cref="TextReader"/>.
+        /// </summary>
+        public DataType DataType { get; set; }
+
         public sealed override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {
             if (testMethod == null)
                 throw new ArgumentNullException(nameof(testMethod));
 
             Assembly assembly = Assembly ?? testMethod.DeclaringType.Assembly;
-            Encoding encoding = Encoding ?? Encoding.UTF8;
+            Encoding encoding = Encoding;
 
-            var matchingResources = new HashSet<string>(StringComparer.Ordinal);
-
-            // Figure out all the resources to load. Avoid duplicate resource names.
-            foreach (string resourceName in _resourceNames)
+            var resourceLists = new List<List<string>>();
+            if (_useAsRegex)
             {
-                IEnumerable<string> resolvedResources = GetResourceNames(assembly, resourceName);
-                foreach (string resolvedResource in resolvedResources)
-                    matchingResources.Add(resolvedResource);
+                IEnumerable<string> matchingResources = GetMatchingResourceNames(Assembly, _resourceNames[0]);
+                resourceLists.AddRange(matchingResources.Select(r => new List<string>{r}).ToList());
             }
+            else
+                resourceLists.Add(_resourceNames.ToList());
 
-            foreach (string matchingResource in matchingResources)
+            IReadOnlyList<Type> parameterTypes = testMethod.GetParameters().Select(p => p.ParameterType).ToList();
+
+            foreach (List<string> resourceList in resourceLists)
             {
-                using (Stream stream = assembly.GetManifestResourceStream(matchingResource))
-                using (var reader = new StreamReader(stream, encoding, DetectEncoding))
+                List<string> resourcesContent = resourceList.Select(rname =>
                 {
-                    string content = reader.ReadToEnd();
-                    IEnumerable<object[]> data = GetData(content, testMethod);
-                    foreach (object[] dataItem in data)
-                        yield return dataItem;
-                }
+                    using (Stream stream = assembly.GetManifestResourceStream(rname))
+                    using (var reader = new StreamReader(stream, encoding, DetectEncoding))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }).ToList();
+                
+                if (resourcesContent.Count != parameterTypes.Count)
+                    throw new Exception("Mismatched number of data vs parameters.");
+
+                var resources = resourcesContent.Zip(parameterTypes, (r, t) => (r, t)).ToList();
+                IEnumerable<object> data = GetData(resources);
+                yield return data.ToArray();
             }
         }
 
-        /// <summary>
-        ///     Given the resource content, deriving classes should override this method to extract
-        ///     the required data and return as an <c>IEnumerable&lt;object[]&gt;</c>
-        /// </summary>
-        /// <param name="resourceContent">The content of the resource, as a string.</param>
-        /// <param name="testMethod">The test method.</param>
-        /// <returns>A collection of extracted data.</returns>
-        protected abstract IEnumerable<object[]> GetData(string resourceContent, MethodInfo testMethod);
+        protected abstract IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources);
 
-        private IEnumerable<string> GetResourceNames(Assembly assembly, string resourceName)
+        protected Stream ToStream(string str)
         {
-            if (!UseAsRegex)
-                return new[] { resourceName };
+            byte[] encoded = Encoding.GetBytes(str);
+            return new MemoryStream(encoded);
+        }
 
+        protected TextReader ToReader(string str)
+        {
+            return new StringReader(str);
+        }
+
+        private IEnumerable<string> GetMatchingResourceNames(Assembly assembly, string resourceName)
+        {
             var regex = new Regex(resourceName);
             return assembly.GetManifestResourceNames()
                 .Where(name => regex.IsMatch(name));

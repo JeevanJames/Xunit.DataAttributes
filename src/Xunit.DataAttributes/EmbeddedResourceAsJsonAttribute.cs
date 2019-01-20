@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+
 using Newtonsoft.Json.Linq;
 
 using Xunit.DataAttributes.Bases;
@@ -39,26 +40,22 @@ namespace Xunit.DataAttributes
         {
         }
 
-        protected override IEnumerable<object[]> GetData(string resourceContent, MethodInfo testMethod)
+        protected override IEnumerable<object> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
-            ParameterInfo[] testMethodParams = testMethod.GetParameters();
-            if (testMethodParams.Length != 1)
-                throw new InvalidOperationException($"The test method {testMethod.Name} should have only a single parameter.");
-
-            Type dataType = testMethodParams[0].ParameterType;
-
-            var allData = JToken.Parse(resourceContent);
-            if (allData is JArray arr)
+            foreach (var (content, type) in resources)
             {
-                Type listType = typeof(List<>).MakeGenericType(dataType);
-                var data = (IList)arr.ToObject(listType);
-                foreach (object dataItem in data)
-                    yield return new object[] { dataItem };
-            }
-            else if (allData is JObject obj)
-            {
-                object data = obj.ToObject(dataType);
-                yield return new object[] { data };
+                var allData = JToken.Parse(content);
+                if (allData is JArray arr)
+                {
+                    Type listType = typeof(List<>).MakeGenericType(type);
+                    var data = (IList)arr.ToObject(listType);
+                    yield return data;
+                }
+                else if (allData is JObject obj)
+                {
+                    object data = obj.ToObject(type);
+                    yield return data;
+                }
             }
         }
     }
