@@ -33,26 +33,15 @@ namespace Xunit.DataAttributes
     /// </summary>
     public sealed class EmbeddedResourceLinesAttribute : EmbeddedResourceDataAttribute
     {
-        private readonly Func<string, object> _lineConverter;
-
         public EmbeddedResourceLinesAttribute(string resourceName, bool useAsRegex = false)
             : base(resourceName, useAsRegex)
         {
         }
 
-        public EmbeddedResourceLinesAttribute(string resourceName, Func<string, object> lineConverter,
-            bool useAsRegex = false) : base(resourceName, useAsRegex)
-        {
-            if (lineConverter == null)
-                throw new ArgumentNullException(nameof(lineConverter));
-            _lineConverter = lineConverter;
-        }
-
         protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
             string[] lines = Regex.Split(resources[0].content, @"\r\n|\r|\n");
-            IEnumerable<object> data = _lineConverter != null ? lines.Select(_lineConverter) : lines;
-            return data.Select(line => new object[] { line });
+            return lines.Select(line => new object[] { line });
         }
     }
 }

@@ -27,32 +27,24 @@ using Xunit.DataAttributes.Bases;
 
 namespace Xunit.DataAttributes
 {
-    /// <summary>
-    ///     Provides a data source for a data theory, with the data coming from one or more assembly
-    ///     embedded resources, where each resource is a JSON structure that can be deserialized
-    ///     into the specified type.
-    /// </summary>
-    public sealed class EmbeddedResourceAsJsonAttribute : EmbeddedResourceDataAttribute
+    public sealed class EmbeddedResourceAsJsonDeconstructedArrayAttribute : EmbeddedResourceDataAttribute
     {
-        public EmbeddedResourceAsJsonAttribute(params string[] resourceNames) : base(resourceNames)
+        public EmbeddedResourceAsJsonDeconstructedArrayAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
         {
         }
 
-        public EmbeddedResourceAsJsonAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
-        {
-        }
-
-        /// <inheritdoc/>
         protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
         {
-            var result = new object[resources.Count];
-            for (int i = 0; i < resources.Count; i++)
+            var (content, type) = resources[0];
+
+            var allData = JToken.Parse(content);
+            if (allData is JObject obj)
+                yield return new object[] {obj.ToObject(type)};
+            else if (allData is JArray arr)
             {
-                var (content, type) = resources[i];
-                JToken allData = JToken.Parse(content);
-                result[i] = allData.ToObject(type);
+                foreach (JToken item in arr)
+                    yield return new object[] {item.ToObject(type)};
             }
-            yield return result;
         }
     }
 }
