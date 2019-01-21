@@ -27,25 +27,21 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using Xunit.Sdk;
-
 namespace Xunit.DataAttributes.Bases
 {
+
     /// <summary>
     ///     Base class for xUnit data attributes that extract data from one or more embedded
     ///     resources in assemblies.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class EmbeddedResourceDataAttribute : DataAttribute
+    public abstract class EmbeddedResourceDataAttribute : ExternalContentDataAttribute
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly IReadOnlyList<string> _resourceNames;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly bool _useAsRegex;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Encoding _encoding = Encoding.UTF8;
 
         public EmbeddedResourceDataAttribute(params string[] resourceNames)
         {
@@ -75,21 +71,6 @@ namespace Xunit.DataAttributes.Bases
         ///     currently executing assembly.
         /// </summary>
         public Assembly Assembly { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the character encoding to use when loading the resource data.
-        /// </summary>
-        public Encoding Encoding
-        {
-            get => _encoding ?? Encoding.UTF8;
-            set => _encoding = value ?? throw new ArgumentNullException(nameof(value));
-        }
-
-        /// <summary>
-        ///     Gets or sets whether to automatically detect the character encoding when loading
-        ///     the resource data.
-        /// </summary>
-        public bool DetectEncoding { get; set; } = false;
 
         public sealed override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {
@@ -129,19 +110,6 @@ namespace Xunit.DataAttributes.Bases
                 foreach (object[] items in data)
                     yield return items;
             }
-        }
-
-        protected abstract IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources);
-
-        protected Stream ToStream(string str)
-        {
-            byte[] encoded = Encoding.GetBytes(str);
-            return new MemoryStream(encoded);
-        }
-
-        protected TextReader ToReader(string str)
-        {
-            return new StringReader(str);
         }
 
         private IEnumerable<string> GetMatchingResourceNames(Assembly assembly, string resourceName)

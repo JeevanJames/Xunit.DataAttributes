@@ -25,17 +25,13 @@ using Xunit.DataAttributes.Bases;
 
 namespace Xunit.DataAttributes
 {
-    /// <summary>
-    ///     Provides a data source for a data theory, with the data coming as the content of one or
-    ///     more assembly embedded resources.
-    /// </summary>
-    public sealed class EmbeddedResourceContentAttribute : EmbeddedResourceDataAttribute
+    public sealed class FileContentAttribute : FileDataAttribute
     {
-        public EmbeddedResourceContentAttribute(params string[] resourceNames) : base(resourceNames)
+        public FileContentAttribute(params string[] fileNames) : base(fileNames)
         {
         }
 
-        public EmbeddedResourceContentAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
+        public FileContentAttribute(string directory, string fileMask) : base(directory, fileMask)
         {
         }
 
@@ -50,7 +46,7 @@ namespace Xunit.DataAttributes
                     data = ToStream(content);
                 else if (ContentType == ContentType.TextReader)
                     data = ToReader(content);
-                yield return new object[] {data};
+                yield return new object[] { data };
             }
         }
     }
