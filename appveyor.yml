@@ -2,7 +2,7 @@ version: 1.0.{build}
 image: Visual Studio 2017
 configuration: Release
 environment:
-  CODECOV_TOKEN: 5ad613f1-0623-451d-b889-2c6020f132f4
+  CODECOV_TOKEN: 9b5deb9d-dfbd-487d-a2cd-c5a1e12953ed
 before_build:
 - pwsh: >-
     dotnet restore
