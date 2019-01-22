@@ -26,6 +26,7 @@ namespace Xunit.DataAttributes.Tests
         public const string JsonObject = "Xunit.DataAttributes.Tests.Resources.Object.json";
         public const string JsonPrimitiveCollection = "Xunit.DataAttributes.Tests.Resources.PrimitiveCollection.json";
 
+        public const string TextContent = "Xunit.DataAttributes.Tests.Resources.Content.txt";
         public const string TextLines = "Xunit.DataAttributes.Tests.Resources.Lines.txt";
     }
 }

@@ -18,15 +18,27 @@ limitations under the License.
 */
 #endregion
 
+using Shouldly;
+
 namespace Xunit.DataAttributes.Tests
 {
-    public static class Files
+    public sealed class ContentTests
     {
-        public const string JsonCollection = @"Files\Collection.json";
-        public const string JsonObject = @"Files\Object.json";
-        public const string JsonPrimitiveCollection = @"Files\PrimitiveCollection.json";
+        [Theory]
+        [EmbeddedResourceContent(Resources.TextContent)]
+        public void Can_read_resource_content(string content)
+        {
+            content.ShouldBe(ActualContent);
+        }
 
-        public const string TextContent = @"Files\Content.txt";
-        public const string TextLines = @"Files\Lines.txt";
+        [Theory]
+        [FileContent(Files.TextContent)]
+        public void Can_read_file_content(string content)
+        {
+            content.ShouldBe(ActualContent);
+        }
+
+        private const string ActualContent = @"Xunit.DataAttributes
+By Jeevan James";
     }
 }
