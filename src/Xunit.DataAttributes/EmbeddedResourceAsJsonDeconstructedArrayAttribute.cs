@@ -21,8 +21,6 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 
-using Newtonsoft.Json.Linq;
-
 using Xunit.DataAttributes.Bases;
 
 namespace Xunit.DataAttributes
@@ -33,18 +31,7 @@ namespace Xunit.DataAttributes
         {
         }
 
-        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents)
-        {
-            var (content, type) = contents[0];
-
-            var allData = JToken.Parse(content);
-            if (allData is JObject obj)
-                yield return new object[] {obj.ToObject(type)};
-            else if (allData is JArray arr)
-            {
-                foreach (JToken item in arr)
-                    yield return new object[] {item.ToObject(type)};
-            }
-        }
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents) =>
+            this.GetAsJsonDeconstructedArray(contents[0]);
     }
 }

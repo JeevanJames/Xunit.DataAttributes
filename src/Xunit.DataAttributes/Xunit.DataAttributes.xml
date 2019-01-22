@@ -49,5 +49,14 @@
                 embedded contents, where each data item is a single line in the embedded resource content.
             </summary>
         </member>
+        <member name="T:Xunit.DataAttributes.FileAsJsonAttribute">
+            <summary>
+                Provides a data source for a data theory, with the data coming from one or more files, where each resource
+                is a JSON structure that can be deserialized into the specified type.
+            </summary>
+        </member>
+        <member name="M:Xunit.DataAttributes.FileAsJsonAttribute.GetData(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Type}})">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>

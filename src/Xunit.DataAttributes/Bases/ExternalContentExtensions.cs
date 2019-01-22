@@ -24,6 +24,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using Newtonsoft.Json.Linq;
+
 namespace Xunit.DataAttributes.Bases
 {
     internal static class ExternalContentExtensions
@@ -49,6 +51,32 @@ namespace Xunit.DataAttributes.Bases
         {
             string[] lines = Regex.Split(content.content, @"\r\n|\r|\n");
             return lines.Select(line => new object[] {line});
+        }
+
+        internal static IEnumerable<object[]> GetAsJson(this ExternalContentDataAttribute attribute,
+            IReadOnlyList<(string content, Type type)> contents)
+        {
+            var result = new object[contents.Count];
+            for (int i = 0; i < contents.Count; i++)
+            {
+                var (content, type) = contents[i];
+                JToken allData = JToken.Parse(content);
+                result[i] = allData.ToObject(type);
+            }
+            yield return result;
+        }
+
+        internal static IEnumerable<object[]> GetAsJsonDeconstructedArray(this ExternalContentDataAttribute attribute,
+            (string content, Type type) content)
+        {
+            var allData = JToken.Parse(content.content);
+            if (allData is JObject obj)
+                yield return new object[] { obj.ToObject(content.type) };
+            else if (allData is JArray arr)
+            {
+                foreach (JToken item in arr)
+                    yield return new object[] { item.ToObject(content.type) };
+            }
         }
     }
 }

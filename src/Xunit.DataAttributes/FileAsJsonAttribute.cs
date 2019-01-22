@@ -26,17 +26,16 @@ using Xunit.DataAttributes.Bases;
 namespace Xunit.DataAttributes
 {
     /// <summary>
-    ///     Provides a data source for a data theory, with the data coming from one or more assembly
-    ///     embedded contents, where each resource is a JSON structure that can be deserialized
-    ///     into the specified type.
+    ///     Provides a data source for a data theory, with the data coming from one or more files, where each resource
+    ///     is a JSON structure that can be deserialized into the specified type.
     /// </summary>
-    public sealed class EmbeddedResourceAsJsonAttribute : EmbeddedResourceDataAttribute
+    public sealed class FileAsJsonAttribute : FileDataAttribute
     {
-        public EmbeddedResourceAsJsonAttribute(params string[] resourceNames) : base(resourceNames)
+        public FileAsJsonAttribute(params string[] resourceNames) : base(resourceNames)
         {
         }
 
-        public EmbeddedResourceAsJsonAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
+        public FileAsJsonAttribute(string directory, string fileMask) : base(directory, fileMask)
         {
         }
 

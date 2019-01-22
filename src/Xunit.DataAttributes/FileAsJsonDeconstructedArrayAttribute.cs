@@ -25,23 +25,13 @@ using Xunit.DataAttributes.Bases;
 
 namespace Xunit.DataAttributes
 {
-    /// <summary>
-    ///     Provides a data source for a data theory, with the data coming from one or more assembly
-    ///     embedded contents, where each resource is a JSON structure that can be deserialized
-    ///     into the specified type.
-    /// </summary>
-    public sealed class EmbeddedResourceAsJsonAttribute : EmbeddedResourceDataAttribute
+    public sealed class FileAsJsonDeconstructedArrayAttribute : EmbeddedResourceDataAttribute
     {
-        public EmbeddedResourceAsJsonAttribute(params string[] resourceNames) : base(resourceNames)
+        public FileAsJsonDeconstructedArrayAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
         {
         }
 
-        public EmbeddedResourceAsJsonAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
-        {
-        }
-
-        /// <inheritdoc/>
         protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents) =>
-            this.GetAsJson(contents);
+            this.GetAsJsonDeconstructedArray(contents[0]);
     }
 }
