@@ -33,9 +33,9 @@ namespace Xunit.DataAttributes
         {
         }
 
-        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents)
         {
-            var (content, type) = resources[0];
+            var (content, type) = contents[0];
 
             var allData = JToken.Parse(content);
             if (allData is JObject obj)

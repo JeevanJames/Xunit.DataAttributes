@@ -27,7 +27,7 @@ namespace Xunit.DataAttributes
 {
     /// <summary>
     ///     Provides a data source for a data theory, with the data coming as the content of one or
-    ///     more assembly embedded resources.
+    ///     more assembly embedded contents.
     /// </summary>
     public sealed class EmbeddedResourceContentAttribute : EmbeddedResourceDataAttribute
     {
@@ -41,17 +41,7 @@ namespace Xunit.DataAttributes
 
         public ContentType ContentType { get; set; }
 
-        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
-        {
-            foreach (var (content, _) in resources)
-            {
-                object data = content;
-                if (ContentType == ContentType.Stream)
-                    data = ToStream(content);
-                else if (ContentType == ContentType.TextReader)
-                    data = ToReader(content);
-                yield return new object[] {data};
-            }
-        }
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents) =>
+            this.GetContent(contents, ContentType);
     }
 }

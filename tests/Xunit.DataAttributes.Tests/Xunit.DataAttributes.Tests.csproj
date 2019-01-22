@@ -7,17 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\Collection.json" />
-    <None Remove="Data\Lines.txt" />
-    <None Remove="Data\Object.json" />
-    <None Remove="Data\PrimitiveCollection.json" />
+    <None Remove="Resources\Collection.json" />
+    <None Remove="Resources\Lines.txt" />
+    <None Remove="Resources\Object.json" />
+    <None Remove="Resources\PrimitiveCollection.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Data\Collection.json" />
-    <EmbeddedResource Include="Data\Lines.txt" />
-    <EmbeddedResource Include="Data\Object.json" />
-    <EmbeddedResource Include="Data\PrimitiveCollection.json" />
+    <EmbeddedResource Include="Resources\Collection.json" />
+    <EmbeddedResource Include="Resources\Lines.txt" />
+    <EmbeddedResource Include="Resources\Object.json" />
+    <EmbeddedResource Include="Resources\PrimitiveCollection.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +36,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Xunit.DataAttributes\Xunit.DataAttributes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Files\Collection.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\Lines.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\Object.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\PrimitiveCollection.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

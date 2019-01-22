@@ -29,7 +29,7 @@ namespace Xunit.DataAttributes
 {
     /// <summary>
     ///     Provides a data source for a data theory, with the data coming from one or more assembly
-    ///     embedded resources, where each resource is a JSON structure that can be deserialized
+    ///     embedded contents, where each resource is a JSON structure that can be deserialized
     ///     into the specified type.
     /// </summary>
     public sealed class EmbeddedResourceAsJsonAttribute : EmbeddedResourceDataAttribute
@@ -43,12 +43,12 @@ namespace Xunit.DataAttributes
         }
 
         /// <inheritdoc/>
-        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents)
         {
-            var result = new object[resources.Count];
-            for (int i = 0; i < resources.Count; i++)
+            var result = new object[contents.Count];
+            for (int i = 0; i < contents.Count; i++)
             {
-                var (content, type) = resources[i];
+                var (content, type) = contents[i];
                 JToken allData = JToken.Parse(content);
                 result[i] = allData.ToObject(type);
             }

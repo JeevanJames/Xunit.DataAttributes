@@ -21,7 +21,6 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 
 using Xunit.Sdk;
@@ -49,17 +48,6 @@ namespace Xunit.DataAttributes.Bases
         /// </summary>
         public bool DetectEncoding { get; set; } = false;
 
-        protected abstract IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources);
-
-        protected Stream ToStream(string str)
-        {
-            byte[] encoded = Encoding.GetBytes(str);
-            return new MemoryStream(encoded);
-        }
-
-        protected TextReader ToReader(string str)
-        {
-            return new StringReader(str);
-        }
+        protected abstract IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents);
     }
 }

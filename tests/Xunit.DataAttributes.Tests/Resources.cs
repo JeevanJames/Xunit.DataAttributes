@@ -18,26 +18,15 @@ limitations under the License.
 */
 #endregion
 
-using System;
-using System.Collections.Generic;
 
-using Xunit.DataAttributes.Bases;
-
-namespace Xunit.DataAttributes
+namespace Xunit.DataAttributes.Tests
 {
-    public sealed class FileContentAttribute : FileDataAttribute
+    public static class Resources
     {
-        public FileContentAttribute(params string[] fileNames) : base(fileNames)
-        {
-        }
+        public const string JsonCollection = "Xunit.DataAttributes.Tests.Resources.Collection.json";
+        public const string JsonObject = "Xunit.DataAttributes.Tests.Resources.Object.json";
+        public const string JsonPrimitiveCollection = "Xunit.DataAttributes.Tests.Resources.PrimitiveCollection.json";
 
-        public FileContentAttribute(string directory, string fileMask) : base(directory, fileMask)
-        {
-        }
-
-        public ContentType ContentType { get; set; }
-
-        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents) =>
-            this.GetContent(contents, ContentType);
+        public const string TextLines = "Xunit.DataAttributes.Tests.Resources.Lines.txt";
     }
 }

@@ -45,7 +45,7 @@ namespace Xunit.DataAttributes.Bases
             if (fileNames == null)
                 throw new ArgumentNullException(nameof(fileNames));
 
-            _fileNames = fileNames.ToList();
+            _fileNames = fileNames.Select(fn => Path.GetFullPath(fn)).ToList();
 
             if (_fileNames.Count == 0)
                 throw new ArgumentException("Specify at least one valid file name.", nameof(fileNames));

@@ -4,17 +4,6 @@
         <name>Xunit.DataAttributes</name>
     </assembly>
     <members>
-        <member name="P:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.Encoding">
-            <summary>
-                Gets or sets the character encoding to use when loading the resource data.
-            </summary>
-        </member>
-        <member name="P:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.DetectEncoding">
-            <summary>
-                Gets or sets whether to automatically detect the character encoding when loading
-                the resource data.
-            </summary>
-        </member>
         <member name="T:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute">
             <summary>
                 Base class for xUnit data attributes that extract data from one or more embedded
@@ -27,10 +16,21 @@
                 currently executing assembly.
             </summary>
         </member>
+        <member name="P:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.Encoding">
+            <summary>
+                Gets or sets the character encoding to use when loading the resource data.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.DetectEncoding">
+            <summary>
+                Gets or sets whether to automatically detect the character encoding when loading
+                the resource data.
+            </summary>
+        </member>
         <member name="T:Xunit.DataAttributes.EmbeddedResourceAsJsonAttribute">
             <summary>
                 Provides a data source for a data theory, with the data coming from one or more assembly
-                embedded resources, where each resource is a JSON structure that can be deserialized
+                embedded contents, where each resource is a JSON structure that can be deserialized
                 into the specified type.
             </summary>
         </member>
@@ -40,13 +40,13 @@
         <member name="T:Xunit.DataAttributes.EmbeddedResourceContentAttribute">
             <summary>
                 Provides a data source for a data theory, with the data coming as the content of one or
-                more assembly embedded resources.
+                more assembly embedded contents.
             </summary>
         </member>
         <member name="T:Xunit.DataAttributes.EmbeddedResourceLinesAttribute">
             <summary>
                 Provides a data source for a data theory, with the data coming from one or more assembly
-                embedded resources, where each data item is a single line in the embedded resource content.
+                embedded contents, where each data item is a single line in the embedded resource content.
             </summary>
         </member>
     </members>

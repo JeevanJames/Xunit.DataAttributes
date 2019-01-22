@@ -18,10 +18,18 @@ limitations under the License.
 */
 #endregion
 
+using Shouldly;
+
 namespace Xunit.DataAttributes.Tests
 {
-    public static class Texts
+    public sealed class FileLinesTests
     {
-        public const string Lines = "Xunit.DataAttributes.Tests.Data.Lines.txt";
+        [Theory]
+        [FileLines(Files.TextLines)]
+        public void Can_deserialize_lines_from_text(string line)
+        {
+            line.ShouldNotBeNull();
+            line.ShouldEndWith("day");
+        }
     }
 }

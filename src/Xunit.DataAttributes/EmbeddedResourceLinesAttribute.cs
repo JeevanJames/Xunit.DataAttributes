@@ -20,8 +20,6 @@ limitations under the License.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 using Xunit.DataAttributes.Bases;
 
@@ -29,7 +27,7 @@ namespace Xunit.DataAttributes
 {
     /// <summary>
     ///     Provides a data source for a data theory, with the data coming from one or more assembly
-    ///     embedded resources, where each data item is a single line in the embedded resource content.
+    ///     embedded contents, where each data item is a single line in the embedded resource content.
     /// </summary>
     public sealed class EmbeddedResourceLinesAttribute : EmbeddedResourceDataAttribute
     {
@@ -38,10 +36,7 @@ namespace Xunit.DataAttributes
         {
         }
 
-        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> resources)
-        {
-            string[] lines = Regex.Split(resources[0].content, @"\r\n|\r|\n");
-            return lines.Select(line => new object[] { line });
-        }
+        protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents) =>
+            this.GetLines(contents[0]);
     }
 }
