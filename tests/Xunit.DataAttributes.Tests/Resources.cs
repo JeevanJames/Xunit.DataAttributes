@@ -18,7 +18,6 @@ limitations under the License.
 */
 #endregion
 
-
 namespace Xunit.DataAttributes.Tests
 {
     public static class Resources

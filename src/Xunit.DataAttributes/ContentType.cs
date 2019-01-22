@@ -18,8 +18,6 @@ limitations under the License.
 */
 #endregion
 
-
-
 namespace Xunit.DataAttributes
 {
     public enum ContentType
