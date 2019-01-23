@@ -12,4 +12,4 @@ Content data attributes provide various types of data from different text source
 |Raw context as text.|`EmbeddedResourceContentAttribute`|`FileContentAttribute`|
 |Lines from the text content.|`EmbeddedResourceLinesAttribute`|`FileLinesAttribute`|
 |Text content as JSON, where the whole content is deserialized to a .NET type.|`EmbeddedResourceAsJsonAttribute`|`FileAsJsonAttribute`|
-|Text content as JSON, where JSON arrays are deconstructed and each item is a data item.|`EmbeddedResourceAsJsonDeconstructedAttribute`|`FileAsJsonDeconstructedAttribute`|
+|Text content as JSON, where JSON arrays are deconstructed and each item is a data item.|`EmbeddedResourceAsJsonDeconstructedArrayAttribute`|`FileAsJsonDeconstructedArrayAttribute`|
