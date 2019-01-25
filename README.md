@@ -10,6 +10,6 @@ Content data attributes provide various types of data from different text source
 |Type of data|Source: Assembly embedded resource|Source: File on file system|
 |------------|----------------------------------|---------------------------|
 |Whole text content as the data.|[`EmbeddedResourceContentAttribute`](docs/content-attribute.md)|[`FileContentAttribute`](docs/content-attribute.md)|
-|Lines from the text content as the data.|`EmbeddedResourceLinesAttribute`|`FileLinesAttribute`|
+|Lines from the text content as the data.|[`EmbeddedResourceLinesAttribute`](docs/lines-attribute.md)|[`FileLinesAttribute`](docs/lines-attribute.md)|
 |Text content as JSON, where the whole content is deserialized to a .NET type.|`EmbeddedResourceAsJsonAttribute`|`FileAsJsonAttribute`|
 |Text content as JSON, where JSON arrays are deconstructed and each item is a data item.|`EmbeddedResourceAsJsonDeconstructedAttribute`|`FileAsJsonDeconstructedAttribute`|
