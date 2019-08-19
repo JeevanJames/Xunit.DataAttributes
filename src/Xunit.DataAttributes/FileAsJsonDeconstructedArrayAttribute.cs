@@ -1,7 +1,7 @@
 ﻿#region --- License & Copyright Notice ---
 /*
 xUnit custom data attributes
-Copyright (c) 2018 Jeevan James
+Copyright (c) 2018-19 Jeevan James
 All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
