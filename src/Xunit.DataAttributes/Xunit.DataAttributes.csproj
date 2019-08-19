@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <Version>0.0.1</Version>
     <Authors>Jeevan James</Authors>
     <Description>Custom xUnit data attributes.</Description>
@@ -10,31 +10,32 @@
     <RepositoryUrl>https://github.com/JeevanJames/Xunit.DataAttributes.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>xunit xunit-extensibility extensibility data-attributes theory xunit-theory</PackageTags>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageIconUrl>https://github.com/JeevanJames/Xunit.DataAttributes/raw/master/logo.png</PackageIconUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>Xunit.DataAttributes.xml</DocumentationFile>
+    <DocumentationFile>Properties\Xunit.DataAttributes.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>Xunit.DataAttributes.xml</DocumentationFile>
+    <DocumentationFile>Properties\Xunit.DataAttributes.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\Xunit.DataAttributes.licenseheader" Link="Xunit.DataAttributes.licenseheader" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
 </Project>
