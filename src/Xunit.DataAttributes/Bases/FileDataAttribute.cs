@@ -40,7 +40,7 @@ namespace Xunit.DataAttributes.Bases
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly string _fileMask;
 
-        public FileDataAttribute(params string[] fileNames)
+        protected FileDataAttribute(params string[] fileNames)
         {
             if (fileNames == null)
                 throw new ArgumentNullException(nameof(fileNames));
@@ -55,7 +55,7 @@ namespace Xunit.DataAttributes.Bases
                 throw new FileNotFoundException($"File {nonexistentFile} not found.", nonexistentFile);
         }
 
-        public FileDataAttribute(string directory, string fileMask)
+        protected FileDataAttribute(string directory, string fileMask)
         {
             _directory = new DirectoryInfo(directory);
             _fileMask = fileMask;
@@ -65,14 +65,18 @@ namespace Xunit.DataAttributes.Bases
         {
             if (testMethod == null)
                 throw new ArgumentNullException(nameof(testMethod));
+            return GetDataIterator(testMethod);
+        }
 
+        private IEnumerable<object[]> GetDataIterator(MethodInfo testMethod)
+        {
             Encoding encoding = Encoding;
 
             var fileLists = new List<List<string>>();
             if (_directory != null)
             {
                 IEnumerable<FileInfo> files = _directory.EnumerateFiles(_fileMask);
-                fileLists.AddRange(files.Select(f => new List<string> {f.FullName}).ToList());
+                fileLists.AddRange(files.Select(f => new List<string> { f.FullName }).ToList());
             }
             else
                 fileLists.Add(_fileNames.ToList());

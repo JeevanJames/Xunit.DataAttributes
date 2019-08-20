@@ -42,7 +42,7 @@ namespace Xunit.DataAttributes.Bases
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly bool _useAsRegex;
 
-        public ResourceDataAttribute(params string[] resourceNames)
+        protected ResourceDataAttribute(params string[] resourceNames)
         {
             if (resourceNames == null)
                 throw new ArgumentNullException(nameof(resourceNames));
@@ -54,7 +54,7 @@ namespace Xunit.DataAttributes.Bases
             _resourceNames = resourceNames.ToList();
         }
 
-        public ResourceDataAttribute(string resourceName, bool useAsRegex = false)
+        protected ResourceDataAttribute(string resourceName, bool useAsRegex = false)
         {
             if (resourceName == null)
                 throw new ArgumentNullException(nameof(resourceName));
@@ -73,9 +73,13 @@ namespace Xunit.DataAttributes.Bases
 
         public sealed override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {
-            if (testMethod == null)
+            if (testMethod is null)
                 throw new ArgumentNullException(nameof(testMethod));
+            return GetDataIterator(testMethod);
+        }
 
+        private IEnumerable<object[]> GetDataIterator(MethodInfo testMethod)
+        {
             Assembly assembly = Assembly ?? testMethod.DeclaringType.Assembly;
             Encoding encoding = Encoding;
 
@@ -83,7 +87,7 @@ namespace Xunit.DataAttributes.Bases
             if (_useAsRegex)
             {
                 IEnumerable<string> matchingResources = GetMatchingResourceNames(Assembly, _resourceNames[0]);
-                resourceLists.AddRange(matchingResources.Select(r => new List<string>{r}).ToList());
+                resourceLists.AddRange(matchingResources.Select(r => new List<string> { r }).ToList());
             }
             else
                 resourceLists.Add(_resourceNames.ToList());
@@ -100,7 +104,7 @@ namespace Xunit.DataAttributes.Bases
                         return reader.ReadToEnd();
                     }
                 }).ToList();
-                
+
                 if (resourcesContent.Count != parameterTypes.Count)
                     throw new Exception("Mismatched number of data vs parameters.");
 
