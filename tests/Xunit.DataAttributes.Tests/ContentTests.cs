@@ -25,7 +25,7 @@ namespace Xunit.DataAttributes.Tests
     public sealed class ContentTests
     {
         [Theory]
-        [EmbeddedResourceContent(Resources.TextContent)]
+        [ResourceContent(Resources.TextContent)]
         public void Can_read_resource_content(string content)
         {
             content.ShouldBe(ActualContent);

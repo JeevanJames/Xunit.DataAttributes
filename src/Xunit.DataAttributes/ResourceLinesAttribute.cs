@@ -26,22 +26,17 @@ using Xunit.DataAttributes.Bases;
 namespace Xunit.DataAttributes
 {
     /// <summary>
-    ///     Provides a data source for a data theory, with the data coming as the content of one or
-    ///     more assembly embedded contents.
+    ///     Provides a data source for a data theory, with the data coming from one or more assembly
+    ///     embedded contents, where each data item is a single line in the embedded resource content.
     /// </summary>
-    public sealed class EmbeddedResourceContentAttribute : EmbeddedResourceDataAttribute
+    public sealed class ResourceLinesAttribute : ResourceDataAttribute
     {
-        public EmbeddedResourceContentAttribute(params string[] resourceNames) : base(resourceNames)
+        public ResourceLinesAttribute(string resourceName, bool useAsRegex = false)
+            : base(resourceName, useAsRegex)
         {
         }
-
-        public EmbeddedResourceContentAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
-        {
-        }
-
-        public ContentType ContentType { get; set; }
 
         protected override IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents) =>
-            this.GetContent(contents, ContentType);
+            this.GetLines(contents[0]);
     }
 }

@@ -30,13 +30,13 @@ namespace Xunit.DataAttributes
     ///     embedded contents, where each resource is a JSON structure that can be deserialized
     ///     into the specified type.
     /// </summary>
-    public sealed class EmbeddedResourceAsJsonAttribute : EmbeddedResourceDataAttribute
+    public sealed class ResourceAsJsonAttribute : ResourceDataAttribute
     {
-        public EmbeddedResourceAsJsonAttribute(params string[] resourceNames) : base(resourceNames)
+        public ResourceAsJsonAttribute(params string[] resourceNames) : base(resourceNames)
         {
         }
 
-        public EmbeddedResourceAsJsonAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
+        public ResourceAsJsonAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
         {
         }
 

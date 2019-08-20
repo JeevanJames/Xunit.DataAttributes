@@ -29,13 +29,12 @@ using System.Text.RegularExpressions;
 
 namespace Xunit.DataAttributes.Bases
 {
-
     /// <summary>
     ///     Base class for xUnit data attributes that extract data from one or more embedded
     ///     resources in assemblies.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class EmbeddedResourceDataAttribute : ExternalContentDataAttribute
+    public abstract class ResourceDataAttribute : ExternalContentDataAttribute
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly IReadOnlyList<string> _resourceNames;
@@ -43,7 +42,7 @@ namespace Xunit.DataAttributes.Bases
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly bool _useAsRegex;
 
-        public EmbeddedResourceDataAttribute(params string[] resourceNames)
+        public ResourceDataAttribute(params string[] resourceNames)
         {
             if (resourceNames == null)
                 throw new ArgumentNullException(nameof(resourceNames));
@@ -55,7 +54,7 @@ namespace Xunit.DataAttributes.Bases
             _resourceNames = resourceNames.ToList();
         }
 
-        public EmbeddedResourceDataAttribute(string resourceName, bool useAsRegex = false)
+        public ResourceDataAttribute(string resourceName, bool useAsRegex = false)
         {
             if (resourceName == null)
                 throw new ArgumentNullException(nameof(resourceName));

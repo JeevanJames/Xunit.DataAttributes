@@ -4,18 +4,6 @@
         <name>Xunit.DataAttributes</name>
     </assembly>
     <members>
-        <member name="T:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute">
-            <summary>
-                Base class for xUnit data attributes that extract data from one or more embedded
-                resources in assemblies.
-            </summary>
-        </member>
-        <member name="P:Xunit.DataAttributes.Bases.EmbeddedResourceDataAttribute.Assembly">
-            <summary>
-                The assembly to load the resources from. If not specified, this defaults to the
-                currently executing assembly.
-            </summary>
-        </member>
         <member name="P:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.Encoding">
             <summary>
                 Gets or sets the character encoding to use when loading the resource data.
@@ -27,26 +15,16 @@
                 the resource data.
             </summary>
         </member>
-        <member name="T:Xunit.DataAttributes.EmbeddedResourceAsJsonAttribute">
+        <member name="T:Xunit.DataAttributes.Bases.ResourceDataAttribute">
             <summary>
-                Provides a data source for a data theory, with the data coming from one or more assembly
-                embedded contents, where each resource is a JSON structure that can be deserialized
-                into the specified type.
+                Base class for xUnit data attributes that extract data from one or more embedded
+                resources in assemblies.
             </summary>
         </member>
-        <member name="M:Xunit.DataAttributes.EmbeddedResourceAsJsonAttribute.GetData(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Type}})">
-            <inheritdoc/>
-        </member>
-        <member name="T:Xunit.DataAttributes.EmbeddedResourceContentAttribute">
+        <member name="P:Xunit.DataAttributes.Bases.ResourceDataAttribute.Assembly">
             <summary>
-                Provides a data source for a data theory, with the data coming as the content of one or
-                more assembly embedded contents.
-            </summary>
-        </member>
-        <member name="T:Xunit.DataAttributes.EmbeddedResourceLinesAttribute">
-            <summary>
-                Provides a data source for a data theory, with the data coming from one or more assembly
-                embedded contents, where each data item is a single line in the embedded resource content.
+                The assembly to load the resources from. If not specified, this defaults to the
+                currently executing assembly.
             </summary>
         </member>
         <member name="T:Xunit.DataAttributes.FileAsJsonAttribute">
@@ -57,6 +35,28 @@
         </member>
         <member name="M:Xunit.DataAttributes.FileAsJsonAttribute.GetData(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Type}})">
             <inheritdoc/>
+        </member>
+        <member name="T:Xunit.DataAttributes.ResourceAsJsonAttribute">
+            <summary>
+                Provides a data source for a data theory, with the data coming from one or more assembly
+                embedded contents, where each resource is a JSON structure that can be deserialized
+                into the specified type.
+            </summary>
+        </member>
+        <member name="M:Xunit.DataAttributes.ResourceAsJsonAttribute.GetData(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Type}})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Xunit.DataAttributes.ResourceContentAttribute">
+            <summary>
+                Provides a data source for a data theory, with the data coming as the content of one or
+                more assembly embedded contents.
+            </summary>
+        </member>
+        <member name="T:Xunit.DataAttributes.ResourceLinesAttribute">
+            <summary>
+                Provides a data source for a data theory, with the data coming from one or more assembly
+                embedded contents, where each data item is a single line in the embedded resource content.
+            </summary>
         </member>
     </members>
 </doc>

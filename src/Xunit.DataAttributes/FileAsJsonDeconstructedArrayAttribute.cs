@@ -25,7 +25,7 @@ using Xunit.DataAttributes.Bases;
 
 namespace Xunit.DataAttributes
 {
-    public sealed class FileAsJsonDeconstructedArrayAttribute : EmbeddedResourceDataAttribute
+    public sealed class FileAsJsonDeconstructedArrayAttribute : ResourceDataAttribute
     {
         public FileAsJsonDeconstructedArrayAttribute(string resourceName, bool useAsRegex = false) : base(resourceName, useAsRegex)
         {

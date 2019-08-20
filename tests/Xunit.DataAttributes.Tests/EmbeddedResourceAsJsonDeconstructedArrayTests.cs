@@ -25,14 +25,14 @@ namespace Xunit.DataAttributes.Tests
     public sealed class EmbeddedResourceAsJsonDeconstructedArrayTests
     {
         [Theory]
-        [EmbeddedResourceAsJsonDeconstructedArray(Resources.JsonCollection)]
+        [ResourceAsJsonDeconstructedArray(Resources.JsonCollection)]
         public void Can_derialize_json_array(TelevisionShow show)
         {
             show.ShouldNotBeNull();
         }
 
         [Theory]
-        [EmbeddedResourceAsJsonDeconstructedArray(Resources.JsonObject)]
+        [ResourceAsJsonDeconstructedArray(Resources.JsonObject)]
         public void Can_derialize_json_object(TelevisionShow show)
         {
             show.ShouldNotBeNull();
@@ -43,15 +43,15 @@ namespace Xunit.DataAttributes.Tests
         }
 
         [Theory]
-        [EmbeddedResourceAsJsonDeconstructedArray(Resources.JsonCollection)]
-        [EmbeddedResourceAsJsonDeconstructedArray(Resources.JsonObject)]
+        [ResourceAsJsonDeconstructedArray(Resources.JsonCollection)]
+        [ResourceAsJsonDeconstructedArray(Resources.JsonObject)]
         public void Can_derialize_json_object_and_array_combo(TelevisionShow show)
         {
             show.ShouldNotBeNull();
         }
 
         [Theory]
-        [EmbeddedResourceAsJsonDeconstructedArray(Resources.JsonPrimitiveCollection)]
+        [ResourceAsJsonDeconstructedArray(Resources.JsonPrimitiveCollection)]
         public void Can_derialize_json_primitive_collection(int num)
         {
             num.ShouldBeGreaterThanOrEqualTo(1);

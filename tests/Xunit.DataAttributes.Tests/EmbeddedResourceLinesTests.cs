@@ -25,7 +25,7 @@ namespace Xunit.DataAttributes.Tests
     public sealed class EmbeddedResourceLinesTests
     {
         [Theory]
-        [EmbeddedResourceLines(Resources.TextLines)]
+        [ResourceLines(Resources.TextLines)]
         public void Can_deserialize_lines_from_text(string line)
         {
             line.ShouldNotBeNull();
