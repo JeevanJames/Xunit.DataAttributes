@@ -4,6 +4,12 @@
         <name>Xunit.DataAttributes</name>
     </assembly>
     <members>
+        <member name="T:Xunit.DataAttributes.Bases.ExternalContentDataAttribute">
+            <summary>
+                Base class for any xUnit data attribute that reads data from an external source such as
+                a file or embedded resource.
+            </summary>
+        </member>
         <member name="P:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.Encoding">
             <summary>
                 Gets or sets the character encoding to use when loading the resource data.
@@ -11,8 +17,8 @@
         </member>
         <member name="P:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.DetectEncoding">
             <summary>
-                Gets or sets whether to automatically detect the character encoding when loading
-                the resource data.
+                Gets or sets a value indicating whether to automatically detect the character encoding
+                when loading the resource data.
             </summary>
         </member>
         <member name="T:Xunit.DataAttributes.Bases.ResourceDataAttribute">

@@ -22,6 +22,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using Newtonsoft.Json.Linq;
@@ -30,6 +32,15 @@ namespace Xunit.DataAttributes.Bases
 {
     internal static class ExternalContentExtensions
     {
+        internal static string ReadResource(this Assembly assembly, string resourceName, Encoding encoding = null, bool detectEncoding = false)
+        {
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (var reader = new StreamReader(stream, encoding ?? Encoding.UTF8, detectEncoding))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         internal static IEnumerable<object[]> GetContent(this ExternalContentDataAttribute attribute,
             IReadOnlyList<(string content, Type type)> contents, ContentType contentType)
         {

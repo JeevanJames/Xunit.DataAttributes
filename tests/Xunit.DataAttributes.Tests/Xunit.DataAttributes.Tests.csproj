@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -20,10 +20,6 @@
     <EmbeddedResource Include="Resources\Lines.txt" />
     <EmbeddedResource Include="Resources\Object.json" />
     <EmbeddedResource Include="Resources\PrimitiveCollection.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\Xunit.DataAttributes.licenseheader" Link="Xunit.DataAttributes.licenseheader" />
   </ItemGroup>
 
   <ItemGroup>

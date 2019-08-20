@@ -27,6 +27,10 @@ using Xunit.Sdk;
 
 namespace Xunit.DataAttributes.Bases
 {
+    /// <summary>
+    ///     Base class for any xUnit data attribute that reads data from an external source such as
+    ///     a file or embedded resource.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public abstract class ExternalContentDataAttribute : DataAttribute
     {
@@ -43,8 +47,8 @@ namespace Xunit.DataAttributes.Bases
         }
 
         /// <summary>
-        ///     Gets or sets whether to automatically detect the character encoding when loading
-        ///     the resource data.
+        ///     Gets or sets a value indicating whether to automatically detect the character encoding
+        ///     when loading the resource data.
         /// </summary>
         public bool DetectEncoding { get; set; } = false;
 

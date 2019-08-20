@@ -97,14 +97,9 @@ namespace Xunit.DataAttributes.Bases
 
             foreach (List<string> resourceList in resourceLists)
             {
-                List<string> resourcesContent = resourceList.Select(rname =>
-                {
-                    using (Stream stream = assembly.GetManifestResourceStream(rname))
-                    using (var reader = new StreamReader(stream, encoding, DetectEncoding))
-                    {
-                        return reader.ReadToEnd();
-                    }
-                }).ToList();
+                List<string> resourcesContent = resourceList
+                    .Select(rname => assembly.ReadResource(rname, encoding, DetectEncoding))
+                    .ToList();
 
                 if (resourcesContent.Count != parameterTypes.Count)
                     throw new Exception(string.Format(CultureInfo.CurrentCulture, Errors.MismatchDataVsParams, parameterTypes.Count, resourcesContent.Count));
