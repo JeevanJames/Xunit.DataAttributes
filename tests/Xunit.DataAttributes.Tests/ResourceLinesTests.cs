@@ -22,7 +22,7 @@ using Shouldly;
 
 namespace Xunit.DataAttributes.Tests
 {
-    public sealed class EmbeddedResourceLinesTests
+    public sealed class ResourceLinesTests
     {
         [Theory]
         [ResourceLines(Resources.TextLines)]

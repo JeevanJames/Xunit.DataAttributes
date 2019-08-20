@@ -22,7 +22,7 @@ using Shouldly;
 
 namespace Xunit.DataAttributes.Tests
 {
-    public sealed class EmbeddedResourceAsJsonDeconstructedArrayTests
+    public sealed class ResourceAsJsonDeconstructedArrayTests
     {
         [Theory]
         [ResourceAsJsonDeconstructedArray(Resources.JsonCollection)]

@@ -24,7 +24,7 @@ using Shouldly;
 
 namespace Xunit.DataAttributes.Tests
 {
-    public sealed class EmbeddedResourceAsJsonTests
+    public sealed class ResourceAsJsonTests
     {
         [Theory]
         [ResourceAsJson(Resources.JsonCollection)]
