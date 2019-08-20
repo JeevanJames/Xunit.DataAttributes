@@ -35,14 +35,12 @@ namespace Xunit.DataAttributes.Bases
         {
             foreach (var (content, _) in contents)
             {
-                object data;
                 if (contentType == ContentType.Stream)
-                    data = new MemoryStream(attribute.Encoding.GetBytes(content));
+                    yield return new object[] { new MemoryStream(attribute.Encoding.GetBytes(content)) };
                 else if (contentType == ContentType.TextReader)
-                    data = new StringReader(content);
+                    yield return new object[] { new StringReader(content) };
                 else
-                    data = content;
-                yield return new object[] {data};
+                    yield return new object[] { content };
             }
         }
 

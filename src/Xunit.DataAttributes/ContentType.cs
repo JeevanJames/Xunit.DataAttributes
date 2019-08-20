@@ -22,7 +22,7 @@ namespace Xunit.DataAttributes
 {
     public enum ContentType
     {
-        String,
+        Text,
         Stream,
         TextReader,
     }

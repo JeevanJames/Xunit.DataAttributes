@@ -27,6 +27,47 @@
                 currently executing assembly.
             </summary>
         </member>
+        <member name="T:Xunit.DataAttributes.Errors">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Errors.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Errors.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Errors.FileNotFound">
+            <summary>
+              Looks up a localized string similar to File {0} not found..
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Errors.FilesNotSpecified">
+            <summary>
+              Looks up a localized string similar to Specify at least one valid file name..
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Errors.MismatchDataVsParams">
+            <summary>
+              Looks up a localized string similar to The number of parameters on the test method ({0}) does not match the number of data items returned by the data attribute ({1}).
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Errors.NullOrEmptyResource">
+            <summary>
+              Looks up a localized string similar to Resource names cannot be null or empty..
+            </summary>
+        </member>
+        <member name="P:Xunit.DataAttributes.Errors.ResourcesNotSpecified">
+            <summary>
+              Looks up a localized string similar to Specify at least one valid resource name..
+            </summary>
+        </member>
         <member name="T:Xunit.DataAttributes.FileAsJsonAttribute">
             <summary>
                 Provides a data source for a data theory, with the data coming from one or more files, where each resource

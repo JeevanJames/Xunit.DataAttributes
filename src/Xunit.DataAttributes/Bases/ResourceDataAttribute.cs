@@ -21,6 +21,7 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -47,9 +48,9 @@ namespace Xunit.DataAttributes.Bases
             if (resourceNames == null)
                 throw new ArgumentNullException(nameof(resourceNames));
             if (!resourceNames.Any())
-                throw new ArgumentException("Specify at least one valid name.", nameof(resourceNames));
+                throw new ArgumentException(Errors.ResourcesNotSpecified, nameof(resourceNames));
             if (resourceNames.Any(name => string.IsNullOrWhiteSpace(name)))
-                throw new ArgumentException("Resource names cannot be null or empty.", nameof(resourceNames));
+                throw new ArgumentException(Errors.NullOrEmptyResource, nameof(resourceNames));
 
             _resourceNames = resourceNames.ToList();
         }
@@ -59,7 +60,7 @@ namespace Xunit.DataAttributes.Bases
             if (resourceName == null)
                 throw new ArgumentNullException(nameof(resourceName));
             if (resourceName.Trim().Length == 0)
-                throw new ArgumentException("Specify a valid resource name.", nameof(resourceName));
+                throw new ArgumentException(Errors.ResourcesNotSpecified, nameof(resourceName));
 
             _resourceNames = new List<string> {resourceName};
             _useAsRegex = useAsRegex;
@@ -106,7 +107,7 @@ namespace Xunit.DataAttributes.Bases
                 }).ToList();
 
                 if (resourcesContent.Count != parameterTypes.Count)
-                    throw new Exception("Mismatched number of data vs parameters.");
+                    throw new Exception(string.Format(CultureInfo.CurrentCulture, Errors.MismatchDataVsParams, parameterTypes.Count, resourcesContent.Count));
 
                 var resources = resourcesContent.Zip(parameterTypes, (res, type) => (res, type)).ToList();
                 IEnumerable<object[]> data = GetData(resources);
@@ -115,7 +116,7 @@ namespace Xunit.DataAttributes.Bases
             }
         }
 
-        private IEnumerable<string> GetMatchingResourceNames(Assembly assembly, string resourceName)
+        private static IEnumerable<string> GetMatchingResourceNames(Assembly assembly, string resourceName)
         {
             var regex = new Regex(resourceName);
             return assembly.GetManifestResourceNames()

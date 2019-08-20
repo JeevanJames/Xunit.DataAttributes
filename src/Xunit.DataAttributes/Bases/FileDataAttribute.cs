@@ -21,6 +21,7 @@ limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -48,11 +49,11 @@ namespace Xunit.DataAttributes.Bases
             _fileNames = fileNames.Select(fn => Path.GetFullPath(fn)).ToList();
 
             if (_fileNames.Count == 0)
-                throw new ArgumentException("Specify at least one valid file name.", nameof(fileNames));
+                throw new ArgumentException(Errors.FilesNotSpecified, nameof(fileNames));
 
             string nonexistentFile = _fileNames.FirstOrDefault(fn => !File.Exists(Path.GetFullPath(fn)));
             if (nonexistentFile != null)
-                throw new FileNotFoundException($"File {nonexistentFile} not found.", nonexistentFile);
+                throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, Errors.FileNotFound, nonexistentFile), nonexistentFile);
         }
 
         protected FileDataAttribute(string directory, string fileMask)
@@ -88,7 +89,7 @@ namespace Xunit.DataAttributes.Bases
                 List<string> fileContents = fileList.Select(fname => File.ReadAllText(fname, encoding)).ToList();
 
                 if (fileContents.Count != parameterTypes.Count)
-                    throw new Exception("Mismatched number of data vs parameters.");
+                    throw new Exception(string.Format(CultureInfo.CurrentCulture, Errors.MismatchDataVsParams, parameterTypes.Count, fileContents.Count));
 
                 var resources = fileContents.Zip(parameterTypes, (fn, type) => (fn, type)).ToList();
                 IEnumerable<object[]> data = GetData(resources);
