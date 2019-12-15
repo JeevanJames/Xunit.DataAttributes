@@ -91,7 +91,7 @@ namespace Xunit.DataAttributes.Bases
                 if (fileContents.Count != parameterTypes.Count)
                     throw new Exception(string.Format(CultureInfo.CurrentCulture, Errors.MismatchDataVsParams, parameterTypes.Count, fileContents.Count));
 
-                var resources = fileContents.Zip(parameterTypes, (fn, type) => (fn, type)).ToList();
+                List<(string fn, Type type)> resources = fileContents.Zip(parameterTypes, (fn, type) => (fn, type)).ToList();
                 IEnumerable<object[]> data = GetData(resources);
                 foreach (object[] items in data)
                     yield return items;

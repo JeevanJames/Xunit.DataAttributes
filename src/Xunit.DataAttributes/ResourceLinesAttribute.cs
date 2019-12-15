@@ -27,7 +27,7 @@ namespace Xunit.DataAttributes
 {
     /// <summary>
     ///     Provides a data source for a data theory, with the data coming from one or more assembly
-    ///     embedded contents, where each data item is a single line in the embedded resource content.
+    ///     embedded resources, where each data item is a single line in the embedded resource content.
     /// </summary>
     public sealed class ResourceLinesAttribute : ResourceDataAttribute
     {

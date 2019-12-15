@@ -21,6 +21,13 @@
                 when loading the resource data.
             </summary>
         </member>
+        <member name="M:Xunit.DataAttributes.Bases.ExternalContentDataAttribute.GetData(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Type}})">
+            <summary>
+                When overridden in a derived class, returns the data for the test method.
+            </summary>
+            <param name="contents"></param>
+            <returns>The test data.</returns>
+        </member>
         <member name="T:Xunit.DataAttributes.Bases.ResourceDataAttribute">
             <summary>
                 Base class for xUnit data attributes that extract data from one or more embedded
@@ -102,7 +109,7 @@
         <member name="T:Xunit.DataAttributes.ResourceLinesAttribute">
             <summary>
                 Provides a data source for a data theory, with the data coming from one or more assembly
-                embedded contents, where each data item is a single line in the embedded resource content.
+                embedded resources, where each data item is a single line in the embedded resource content.
             </summary>
         </member>
     </members>

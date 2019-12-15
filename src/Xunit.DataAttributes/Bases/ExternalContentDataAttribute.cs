@@ -52,6 +52,11 @@ namespace Xunit.DataAttributes.Bases
         /// </summary>
         public bool DetectEncoding { get; set; } = false;
 
+        /// <summary>
+        ///     When overridden in a derived class, returns the data for the test method.
+        /// </summary>
+        /// <param name="contents"></param>
+        /// <returns>The test data.</returns>
         protected abstract IEnumerable<object[]> GetData(IReadOnlyList<(string content, Type type)> contents);
     }
 }
